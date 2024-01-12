@@ -4,7 +4,7 @@
   "description": "A lightweight API for triggering DNS checks from different regions.",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch main.ts"
+    "dev": "tsx watch src/main.ts"
   },
   "author": "Kristof Siket (kristofsiket@gmail.com)",
   "license": "ISC",
@@ -12,7 +12,6 @@
     "@hapi/hapi": "^21.3.2"
   },
   "devDependencies": {
-    "@types/hapi__hapi": "^21.0.0",
     "@types/node": "^20.11.0",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
