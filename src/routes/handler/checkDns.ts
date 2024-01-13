@@ -15,8 +15,10 @@ const handler = async (req: Request, res: ResponseToolkit) => {
 
   return res
     .response({
-      result: data,
+      domain,
+      result: data.result,
       metrics: {
+        isResolved: data.resolved,
         resolutionTime: data.latency,
         isHealthy,
       },
