@@ -19,8 +19,8 @@ const handler = async (req: Request, res: ResponseToolkit) => {
       result: data.result,
       metrics: {
         isResolved: data.resolved,
-        resolutionTime: data.latency,
-        isHealthy,
+        resolutionTime: data.resolved ? data.latency : undefined,
+        isHealthy: data.resolved ? isHealthy : undefined,
       },
     })
     .code(200);
