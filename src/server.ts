@@ -7,7 +7,6 @@ export let server: Server;
 export const init = async function (): Promise<Server> {
   server = Hapi.server({
     port: process.env.PORT || 3000,
-    host: "0.0.0.0",
   });
 
   // Routes will go here
@@ -18,7 +17,9 @@ export const init = async function (): Promise<Server> {
 
 export const start = async function (): Promise<void> {
   console.log(
-    `Listening on http://${server.settings.host}:${server.settings.port}`
+    `Listening on http://${server.settings.host ?? "localhost"}:${
+      server.settings.port
+    }`
   );
   return server.start();
 };
