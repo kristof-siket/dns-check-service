@@ -1,5 +1,5 @@
 import { ServerRoute } from "@hapi/hapi";
-import { DnsQueryRequestParams } from "../schemas/dns/schema";
+import { DnsQueryRequestParams } from "../schemas/dns";
 import handler from "./handler/checkDns";
 
 const checkDns: ServerRoute = {
