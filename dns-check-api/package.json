@@ -1,0 +1,22 @@
+{
+  "name": "dns-check-service",
+  "version": "0.0.1",
+  "description": "A lightweight API for triggering DNS checks from different regions.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc",
+    "start": "node dist/main.js"
+  },
+  "author": "Kristof Siket (kristofsiket@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2",
+    "joi": "^17.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}
