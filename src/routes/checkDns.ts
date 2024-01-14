@@ -1,6 +1,6 @@
 import { ServerRoute } from "@hapi/hapi";
 import { DnsQueryRequestParams } from "../schemas/dns";
-import handler from "./handler/checkDns";
+import handler from "./handler/dns/checkDns";
 
 const checkDns: ServerRoute = {
   method: "GET",

@@ -1,6 +1,6 @@
 import dns, { RecordWithTtl, SoaRecord } from "dns";
 
-const getDnsSoa = async (domain: string) => {
+const getDnsSoa = async (domain: string): Promise<SoaRecord | undefined> => {
   const dnsPromises = dns.promises;
 
   try {
@@ -8,7 +8,6 @@ const getDnsSoa = async (domain: string) => {
     return result;
   } catch (error) {
     console.error(error);
-    return {};
   }
 };
 
