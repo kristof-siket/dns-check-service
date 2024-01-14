@@ -2,11 +2,12 @@
   "name": "dns-check-service",
   "version": "0.0.1",
   "description": "Main package for DNS checker service.",
-  "main": "index.js",
   "scripts": {
     "dev": "cd dns-check-api && npm run dev",
     "start": "cd dns-check-api && npm start",
-    "build": "cd dns-check-api && npm run build"
+    "build": "cd dns-check-api && npm run build",
+    "cf:deploy": "cd cf-worker-router && npm run deploy",
+    "cf:dev": "cd cf-worker-router && npm run dev"
   },
   "author": "",
   "license": "ISC"
