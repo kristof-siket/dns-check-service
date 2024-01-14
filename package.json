@@ -7,7 +7,8 @@
     "start": "cd dns-check-api && npm start",
     "build": "cd dns-check-api && npm run build",
     "cf:deploy": "cd cf-worker-router && npm run deploy",
-    "cf:dev": "cd cf-worker-router && npm run dev"
+    "cf:dev": "cd cf-worker-router && npm run dev",
+    "install": "cd dns-check-api && npm install && cd ../cf-worker-router && npm install"
   },
   "author": "",
   "license": "ISC"
