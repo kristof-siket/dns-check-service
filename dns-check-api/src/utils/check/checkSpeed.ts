@@ -22,12 +22,12 @@ const checkSpeed = (resolutionTime: number) => {
   ) {
     return {
       status: DnsHealthCheckStatus.WARNING,
-      message: `DNS resolution time is a bit high (${resolutionTime} seconds)!`,
+      message: `DNS resolution time is a bit high (${resolutionTime}ms)!`,
     };
   } else {
     return {
       status: DnsHealthCheckStatus.UNHEALTHY,
-      message: `DNS resolution time is too high (${resolutionTime} seconds)!`,
+      message: `DNS resolution time is too high (${resolutionTime}ms)!`,
     };
   }
 };
