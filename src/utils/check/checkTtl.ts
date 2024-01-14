@@ -7,15 +7,18 @@ import {
 import { DnsHealthCheckStatus, MetricResult } from "../types";
 
 const checkTtl = (ttl: number, soa?: boolean): MetricResult => {
-  if (ttl < (soa ? MIN_SOA_TTL : MIN_DNS_TTL)) {
+  const actualMinTtl = soa ? MIN_SOA_TTL : MIN_DNS_TTL;
+  const actualMaxTtl = soa ? MAX_SOA_TTL : MAX_DNS_TTL;
+
+  if (ttl < actualMinTtl) {
     return {
       status: DnsHealthCheckStatus.WARNING,
-      message: `TTL seems to be a bit low (${ttl} seconds)! Consider increasing it to at least ${MIN_DNS_TTL} seconds for better resolution performance!`,
+      message: `TTL seems to be a bit low (${ttl} seconds)! Consider increasing it to at least ${actualMinTtl} seconds for better resolution performance!`,
     };
-  } else if (ttl > (soa ? MAX_SOA_TTL : MAX_DNS_TTL)) {
+  } else if (ttl > actualMaxTtl) {
     return {
       status: DnsHealthCheckStatus.WARNING,
-      message: `TTL seems to be a bit high (${ttl} seconds)! Consider decreasing it to at most ${MAX_DNS_TTL} seconds for applying changes faster!`,
+      message: `TTL seems to be a bit high (${ttl} seconds)! Consider decreasing it to at most ${actualMaxTtl} seconds for applying changes faster!`,
     };
   }
   return {

@@ -9,12 +9,12 @@ const checkSpeed = (resolutionTime: number) => {
   if (resolutionTime < MIN_DNS_NON_CACHED) {
     return {
       status: DnsHealthCheckStatus.HEALTHY,
-      message: `DNS resolution time is OK (${resolutionTime} seconds)! It seems that the DNS record was cached!`,
+      message: `DNS resolution time is OK (${resolutionTime}ms)! It seems that the DNS record was cached!`,
     };
   } else if (resolutionTime < MAX_DNS_RESOLVE_TIME_WARNING) {
     return {
       status: DnsHealthCheckStatus.HEALTHY,
-      message: `DNS resolution time is OK (${resolutionTime} seconds)!`,
+      message: `DNS resolution time is OK (${resolutionTime}ms)!`,
     };
   } else if (
     resolutionTime > MAX_DNS_RESOLVE_TIME_WARNING &&
