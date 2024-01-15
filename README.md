@@ -124,6 +124,28 @@ The check collects essential metrics about the queried domain to determine its h
 
 3. **TTL metrics:** (TTL SoA and TTL for individual records): one thing that the clients can optimize in their DNS setup is **caching**. TTL (Time-to-live) tells for how long the resolved values of the domain name should be cached. There is a dramatic difference between cached vs. non-cached resolution times. While a non-cached resolution time is around 20-50ms (in a healthy case), a cached time can be below 1 millisecond! When it comes to TTL, a "good" value highly depends on the goals. I went through a few articles suggesting values for SoA (provides a minimal TTL) and for individual "A" records (actual TTL that counts back). However, the check doesn't give `UNHEALTHY` status for any TTL value as there are significant differences based on how often we apply changes on a network level. But we give `WARNING` based on the info from the guideline (this part of course requires some fine tuning).
 
+### Acceptance test
+
+1. A healthy domain
+
+kiszamolo.hu is a Hungarian magazine that is hosted at Kinsta. Their domain is managed by Cloudflare so it should be quite fine. Try querying it from different regions (it will be very fast from Europe but still acceptable from Australia):
+
+`GET https://cf-worker-router.kristofsiket.workers.dev/check-dns/kiszamolo.hu?region=europe`
+
+`GET https://cf-worker-router.kristofsiket.workers.dev/check-dns/kiszamolo.hu?region=india`
+
+Their TTLs are a bit low as they need to apply changes quite often, so that warning doesn't mean any problem.
+
+2. An European domain that is slow from far regions
+
+portfolio.hu is also a Hungarian magazine but instead of using Cloudflare, they manage their own DNS. Their latency from Europe is quite good, while it performs quite poorly from India, Australia.
+
+`GET https://cf-worker-router.kristofsiket.workers.dev/check-dns/portfolio.hu?region=europe`
+
+`GET https://cf-worker-router.kristofsiket.workers.dev/check-dns/portfolio.hu?region=india`
+
+**Please, note that if you try a single domain from a single region multiple times consequently, you will see very low latency as the domain name is being cached. We hing the client that the resolution comes from cache if it is below 2ms!**
+
 ### Architecture
 
 As I've already suggested, this system is realized in a distributed way. It has two layers:
