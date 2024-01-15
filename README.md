@@ -103,6 +103,8 @@ GET http://localhost:3000/check-dns/github.com
 
 Notice that you don't need to pass the region in this case - this is because the API runs on your local computer, so it will always query from your location using your internet provider's DNS resolver.
 
+If you run into any incompatibility issue, I ran the service locally using `Node.js v20.10.0` and `npm 10.2.5`. Happy testing!
+
 ## Details
 
 Now, let me elaborate a bit on the details of the project. First, let's delve into the different metrics the API responds to the client, then talk a bit about the solution architecture.
@@ -128,5 +130,22 @@ As I've already suggested, this system is realized in a distributed way. It has 
 
 - A **Router**, deployed as a Cloudflare Worker, written in the Hono framework (general API framework for the Edge). This lives on the Edge - a global distributed network which serves request from a location that is close to the end user. This Router does nothing but selects the right DNS Check API instance based on the region provided in the request body.
 
-- A **DNS Check API**, written in Node.js, TypeScript, Hapi.js that actually performs the DNS queries. This is deployed to Kinsta, that runs applications in Google Kubernetes Engine under the hood. 
+- A **DNS Check API**, written in Node.js, TypeScript, Hapi.js that actually performs the DNS queries. This is deployed to Kinsta, that runs applications in Google Kubernetes Engine under the hood.
 
+In real life, the check would be most probably scheduled, so a scheduler component should also be added. Now, this proof-of-concept only focuses on triggering the check in a selected region and retrieving the results.
+
+The available regions are the following (regions are GCP regions):
+
+1. USA: dns-check-service-1yy3b.kinsta.app (us-east1)
+2. India: dns-check-service-delhi-hw17z.kinsta.app (asia-south2)
+3. Australia: dns-check-service-sydney-3zeg3.kinsta.app (australia-southeast1)
+4. Netherlands: dns-check-service-1yy3b.kinsta.app (eu-west4)
+
+### Improvement opportunities
+
+As this is a proof-of-concept, naturally there is room for improvements
+
+1. Storing historical data: currently the check provides an on-the-fly health status but it doesn't use previous check results as reference, only static numbers. By storing the measurements, we could e.g. set WARNING for values which are above or below the standard deviation, etc.
+2. Fine-tuning current thresholds: by analyzing historical data, we could make the current thersholds more adaptive.
+3. Increase measurement accuracy: currently we are using the `dns` package and measure its query runtime via the Node.js `perf_hooks` (`performance.now()`). As per my experimentation, this is quite accurate but we could implement these on a lower level to be even more accurate. 
+4. Get DNSSEC results. Security is also a crucial point in DNS health analysis, so e.g. adding the [dnssec-js](https://github.com/relaycorp/dnssec-js) package could add some value.
