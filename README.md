@@ -132,7 +132,7 @@ kiszamolo.hu is a Hungarian magazine that is hosted at Kinsta. Their domain is m
 
 `GET https://cf-worker-router.kristofsiket.workers.dev/check-dns/kiszamolo.hu?region=europe`
 
-`GET https://cf-worker-router.kristofsiket.workers.dev/check-dns/kiszamolo.hu?region=india`
+`GET https://cf-worker-router.kristofsiket.workers.dev/check-dns/kiszamolo.hu?region=australia`
 
 Their TTLs are a bit low as they need to apply changes quite often, so that warning doesn't mean any problem.
 
