@@ -10,11 +10,11 @@ const checkDns = async ({ domain }: CheckDnsProps) => {
     const result: RecordWithTtl[] = await dnsPromises.resolve4(domain, {
       ttl: true,
     });
-    dnsPromises.resolve4;
 
     console.log(
       `Resolved IPs for ${domain}: [${result.map((r) => r.address).join(", ")}]`
     );
+
     return {
       resolved: true,
       result,

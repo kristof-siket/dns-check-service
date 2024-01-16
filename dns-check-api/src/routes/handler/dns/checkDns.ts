@@ -1,13 +1,8 @@
-import { ReqRefDefaults, Request, ResponseToolkit } from "@hapi/hapi";
+import { Request, ResponseToolkit } from "@hapi/hapi";
 import speed from "../../../utils/speed";
 import checkDns from "../../../services/checkDns";
-import {
-  MAX_DNS_RESOLVE_TIME,
-  MIN_DNS_TTL,
-} from "../../../constants/thresholds";
 import getDnsSoa from "../../../services/getDnsSoa";
 import getDnsNs from "../../../services/getDnsNs";
-import { DnsHealthCheckStatus } from "../../../utils/types";
 import checkTtl from "../../../utils/check/checkTtl";
 import checkSpeed from "../../../utils/check/checkSpeed";
 import checkResolution from "../../../utils/check/checkResolution";
